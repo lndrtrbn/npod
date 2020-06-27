@@ -1,0 +1,9 @@
+@import "./variables.scss";
+
+html, body {
+    margin: 0;
+    height: 100%;
+    cursor: none;
+    color: var(--color-text);
+    background-color: var(--color-bg);
+}
