@@ -1,0 +1,1 @@
+The folder contains components which are routed.
