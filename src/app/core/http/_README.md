@@ -1,0 +1,1 @@
+The folder **src/app/core/http** contains services that make HTTP requests to API.

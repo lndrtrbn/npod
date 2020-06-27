@@ -1,0 +1,1 @@
+The **src/app/shared/components** folder contains the reusable components across modules of the application.

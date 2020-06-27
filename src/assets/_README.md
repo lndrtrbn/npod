@@ -1,0 +1,1 @@
+The folder **src/assets** contains static resources of the app (images, fonts, SVG, etc).

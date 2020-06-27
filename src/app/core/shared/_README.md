@@ -1,0 +1,1 @@
+The folder **src/app/core/shared** contains services, interfaces, enums, etc with a global scope.

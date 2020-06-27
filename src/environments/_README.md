@@ -1,0 +1,1 @@
+The folder **src/environments** contains files allowing to declare variables for specific environments.

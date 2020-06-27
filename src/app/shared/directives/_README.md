@@ -1,0 +1,1 @@
+The **src/app/shared/directives** folder contains the reusable directives across modules of the application.

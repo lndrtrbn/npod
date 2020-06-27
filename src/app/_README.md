@@ -1,0 +1,1 @@
+The folder **src/app** is the core folder of the Angular application. The code is inside.
