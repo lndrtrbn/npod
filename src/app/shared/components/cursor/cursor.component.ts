@@ -27,8 +27,8 @@ export class CursorComponent implements AfterViewInit, OnInit {
   stuckPosition: CursorPosition = { x: -100, y: -100 };
 
   circleConf: CursorCircleConf = {
-    strokeColor: new paper.Color(1, 1, 1, 0.5),
-    strokeColorHover: new paper.Color(0.176, 0.855, 0.722, 0.5),
+    strokeColor: new paper.Color(1, 1, 1, 0.2),
+    strokeColorHover: new paper.Color(0.176, 0.855, 0.722, 0.8),
     strokeWidth: 1,
     segments: 8,
     radius: 15
