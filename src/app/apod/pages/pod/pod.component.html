@@ -1,1 +1,11 @@
-<p>pod works!</p>
+<div *ngIf="picture" class="left-panel">
+    <a [href]="picture.hdurl" target="blank">
+        <img class="picture" [src]="picture.url" alt="Picture">
+    </a>
+</div>
+
+<div *ngIf="picture" class="right-panel">
+    <span class="date">{{ date }}</span>
+    <h1 class="title">{{ picture.title }}</h1>
+    <p class="explanation">{{ picture.explanation }}</p>
+</div>
