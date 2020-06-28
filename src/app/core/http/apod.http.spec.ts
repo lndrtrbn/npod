@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ApodService } from './apod.service';
+import { ApodService } from './apod.http';
 
 describe('ApodService', () => {
   let service: ApodService;

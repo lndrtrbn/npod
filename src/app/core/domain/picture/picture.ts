@@ -1,9 +1,9 @@
 import { dashToCamelCase } from "../../shared/utils";
 
 /**
- * Represents the data of an image retrieved from the APOD Nasa API.
+ * Represents the data of a picture retrieved from the APOD Nasa API.
  */
-export interface IImage {
+export interface IPicture {
     date: string;
     explanation: string;
     udurl: string;
@@ -13,7 +13,7 @@ export interface IImage {
     url: string;
 }
 
-export class Image {
+export class Picture {
     date: Date;
     explanation: string;
     hdurl: string;
@@ -22,7 +22,7 @@ export class Image {
     title: string;
     url: string;
 
-    constructor(data: IImage) {
+    constructor(data: IPicture) {
         Object.keys(data || {}).forEach(property => {
             if (property === "date") {
                 this[property] = new Date(data[property]);

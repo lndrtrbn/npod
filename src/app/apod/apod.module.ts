@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { HttpClientModule } from '@angular/common/http';
 import { ApodRoutingModule } from './apod-routing.module';
 import { PicturesComponent } from './pages/pictures/pictures.component';
 import { PodComponent } from './pages/pod/pod.component';
@@ -10,7 +10,7 @@ import { PodComponent } from './pages/pod/pod.component';
   declarations: [PicturesComponent, PodComponent],
   imports: [
     CommonModule,
-    ApodRoutingModule
+    ApodRoutingModule  
   ]
 })
 export class ApodModule { }
