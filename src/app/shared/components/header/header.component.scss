@@ -19,7 +19,7 @@
     text-decoration: none;
     margin-right: 30px;
 
-    &:hover {
+    &:hover, &.active-link {
         color: var(--color-primary);
     }
 }
