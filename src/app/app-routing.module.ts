@@ -3,8 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'npod',
-    loadChildren: () => import("./npod/npod.module").then(m => m.NpodModule)
+    path: 'apod',
+    loadChildren: () => import("./apod/apod.module").then(m => m.ApodModule)
   },
   {
     path: 'about',
@@ -12,7 +12,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '/npod/all-pictures'
+    redirectTo: '/apod/all-pictures'
   }
 ];
 

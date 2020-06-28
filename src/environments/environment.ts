@@ -5,7 +5,8 @@ import { Environment } from "./environment.interface";
 // The list of file replacements can be found in `angular.json`.
 
 export const environment: Environment = {
-  production: false
+  production: false,
+  apodUrl: "https://api.nasa.gov/planetary/apod"
 };
 
 /*

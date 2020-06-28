@@ -9,7 +9,7 @@ const routes: Routes = [
     component: PicturesComponent
   },
   {
-    path: 'picture-of-the-day',
+    path: ':date',
     component: PodComponent
   }
 ];
@@ -18,4 +18,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class NpodRoutingModule { }
+export class ApodRoutingModule { }
