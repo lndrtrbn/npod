@@ -1,12 +1,10 @@
-import { Component, ViewChild, ElementRef, AfterViewInit, HostListener } from '@angular/core';
-import { Path, Color, view, Point, Project, Group } from "paper";
+import { Component, ViewChild, ElementRef, AfterViewInit, HostListener, OnInit } from '@angular/core';
+import * as paper from "paper";
+import { CursorPosition } from "src/app/core/shared/interfaces/cursor-position";
+import { CursorHoverService } from "src/app/core/shared/services/cursor-hover.service";
+import { flatten } from '@angular/compiler';
 
 // Inspired from: https://tympanus.net/codrops/2019/01/31/custom-cursor-effects/
-
-interface CursorPosition {
-  x: number;
-  y: number;
-}
 
 interface CursorCircleConf {
   strokeColor: paper.Color;
@@ -21,22 +19,27 @@ interface CursorCircleConf {
   templateUrl: './cursor.component.html',
   styleUrls: ['./cursor.component.scss']
 })
-export class CursorComponent implements AfterViewInit {
+export class CursorComponent implements AfterViewInit, OnInit {
   @ViewChild('smallCursor') smallCursorRef: ElementRef<HTMLDivElement>;
 
   position: CursorPosition = { x: -100, y: -100 };
   lastPosition: CursorPosition = { x: -100, y: -100 };
+  stuckPosition: CursorPosition = { x: -100, y: -100 };
 
   circleConf: CursorCircleConf = {
-    strokeColor: new Color(255, 255, 255, 0.5),
-    strokeColorHover: new Color(255, 0, 0, 0.5),
+    strokeColor: new paper.Color(1, 1, 1, 0.5),
+    strokeColorHover: new paper.Color(0.176, 0.855, 0.722, 0.5),
     strokeWidth: 1,
     segments: 8,
     radius: 15
   };
 
+  // Determines if the cursor should stick to an element.
+  isStuck: boolean = false;
+  isNoisy: boolean = false;
+
   // Paper object containing our circle.
-  group: paper.Group;
+  polygon: paper.Path.RegularPolygon;
   
   @HostListener('document:mousemove', ['$event'])
   updateCursorPosition(event: MouseEvent) {
@@ -44,25 +47,28 @@ export class CursorComponent implements AfterViewInit {
   }
 
   /**
+   * @param cursorService To listen for stuck position.
+   */
+  constructor(
+    private readonly cursorService: CursorHoverService
+  ) {}
+
+  ngOnInit() {
+    // Listen for stuck position changes.
+    this.cursorService.stuckPosition.subscribe(p => this.stuckPosition = p);
+  }
+
+  /**
    * Starts cursor animation when the dom is ready.
    */
   ngAfterViewInit(): void {
-    new Project("cursorCanvas");
+    new paper.Project("cursorCanvas");
     // The base shape for the noisy circle.
-    const polygon = new Path.RegularPolygon(
-      new Point(0, 0),
-      this.circleConf.segments,
-      this.circleConf.radius
-    );
-    polygon.strokeColor = this.circleConf.strokeColor;
-    polygon.strokeWidth = this.circleConf.strokeWidth;
-    polygon.smooth();
-    this.group = new Group([polygon]);
-    this.group.applyMatrix = false;
+    this.polygon = this.buildCirclePolygon();
   
     // The draw loop of Paper.js.
     // (60fps with requestAnimationFrame under the hood).
-    view.onFrame = () => {
+    paper.view.onFrame = () => {
       this.renderCircleCursor();
       this.renderSmallCursor();
     };
@@ -77,9 +83,24 @@ export class CursorComponent implements AfterViewInit {
     // Using linear interpolation, the circle will move 0.2 (20%)
     // of the distance between its current position and the mouse
     // coordinates per Frame.
-    this.lastPosition.x = lerp(this.lastPosition.x, this.position.x, 0.2);
-    this.lastPosition.y = lerp(this.lastPosition.y, this.position.y, 0.2);
-    this.group.position = new Point(this.lastPosition.x, this.lastPosition.y);
+    if (!this.stuckPosition) {
+      this.lastPosition.x = lerp(this.lastPosition.x, this.position.x, 0.2);
+      this.lastPosition.y = lerp(this.lastPosition.y, this.position.y, 0.2);
+      this.polygon.strokeColor = this.circleConf.strokeColor;
+      if (this.isNoisy) {
+        this.polygon.scale(0.5, 200);
+        this.isNoisy = false;
+      }
+    } else {
+      this.lastPosition.x = lerp(this.lastPosition.x, this.stuckPosition.x, 0.2);
+      this.lastPosition.y = lerp(this.lastPosition.y, this.stuckPosition.y, 0.2);
+      this.polygon.strokeColor = this.circleConf.strokeColorHover;
+      if (!this.isNoisy) {
+        this.polygon.scale(2, 0.005);
+        this.isNoisy = true;
+      }
+    }
+    this.polygon.position = new paper.Point(this.lastPosition.x, this.lastPosition.y);
   }
 
   /**
@@ -88,6 +109,23 @@ export class CursorComponent implements AfterViewInit {
   renderSmallCursor(): void {
     const newPosition = `translate(${this.position.x}px, ${this.position.y}px)`;
     this.smallCursorRef.nativeElement.style.transform = newPosition;
+  }
+
+  /**
+   * Builds the circle polygon that follow the cursor.
+   * 
+   * @returns The paper object Polygon.
+   */
+  private buildCirclePolygon(): paper.Path.RegularPolygon {
+    const polygon = new paper.Path.RegularPolygon(
+      new paper.Point(0, 0),
+      this.circleConf.segments,
+      this.circleConf.radius
+    );
+    polygon.strokeColor = this.circleConf.strokeColor;
+    polygon.strokeWidth = this.circleConf.strokeWidth;
+    polygon.smooth();
+    return polygon;
   }
 
 }

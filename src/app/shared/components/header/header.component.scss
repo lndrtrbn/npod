@@ -1,0 +1,21 @@
+:host {
+    display: block;
+}
+
+.menu {
+    display: flex;
+    height: 60px;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding-right: 40px;
+}
+
+.link {
+    color: var(--color-text-half);
+    text-decoration: none;
+    margin-right: 30px;
+
+    &:hover {
+        color: var(--color-primary);
+    }
+}
