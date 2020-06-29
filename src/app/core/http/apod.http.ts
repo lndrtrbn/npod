@@ -26,13 +26,10 @@ export class ApodHttpService {
    * @returns The data of the APOD.
    */
   getApod(date?: string): Observable<Picture> {
-    if (!date || date === "today") {
-      // If no date given, then get today.
-      date = moment(new Date()).format("YYYY-MM-DD");
+    let params: HttpParams = new HttpParams().set("api_key", APOD_API_KEY);
+    if (date && date !== "today") {
+      params = params.set("date", date);
     }
-    const params: HttpParams = new HttpParams()
-      .set("date", date)
-      .set("api_key", APOD_API_KEY);
     return this.http.get<IPicture>(environment.apodUrl, { params }).pipe(
       map(img => new Picture(img))
     );
