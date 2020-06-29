@@ -1,0 +1,53 @@
+:host {
+    display: flex;
+    flex-flow: column;
+}
+
+.data {
+    position: relative;
+    display: flex;
+    flex-flow: column;
+
+    &.right {
+        align-self: flex-end;
+        text-align: right;
+    }
+}
+.title {
+    margin: 0;
+    color: var(--color-secondary);
+    font-family: "Raleway", sans-serif;
+    font-size: 60px;
+    letter-spacing: 2px;
+    max-width: 50vw;
+    margin-bottom: 20px;
+    margin-top: -15px;
+}
+.date {
+    font-family: "Raleway", sans-serif;
+    font-size: 140px;
+    opacity: 0.1;
+    color: var(--color-text);
+}
+
+.picture {
+    display: block;
+    width: 60vw;
+
+    &.right {
+        align-self: flex-end;
+        text-align: right;
+    }
+
+    img {
+        max-width: 100%;
+        max-height: 55vh;
+        transition: transform .5s ease-out;
+        will-change: transform;
+        box-shadow: 0px 5px 5px 0px var(--color-shadow);
+        
+        &:hover {
+            transform: scale(1.02);
+        }
+    }
+}

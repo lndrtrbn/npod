@@ -4,6 +4,7 @@
     top: 0;
     left: 0;
     right: 0;
+    z-index: 9999;
 }
 
 .menu {
@@ -16,6 +17,7 @@
 
 .link {
     color: var(--color-text-half);
+    text-shadow: 0px 0px 5px var(--color-bg);
     text-decoration: none;
     margin-right: 30px;
 

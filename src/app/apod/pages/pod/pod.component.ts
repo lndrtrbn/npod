@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ApodHttpService } from "src/app/core/http/apod.http";
 import { ActivatedRoute } from '@angular/router';
 import { Picture } from 'src/app/core/domain/picture/picture';
-import * as moment from "moment";
 
 @Component({
   selector: 'app-pod',
@@ -20,14 +19,6 @@ export class PodComponent implements OnInit {
     private readonly apodHttp: ApodHttpService,
     private readonly route: ActivatedRoute
   ) {}
-
-  /**
-   * Date stringify in a format used by the template.
-   */
-  get date(): string {
-    if (!this.picture) return "";
-    return moment(this.picture.date).format("MM.DD");
-  }
 
   ngOnInit(): void {
     // Retrieve the date in the URL and get the associated APOD.

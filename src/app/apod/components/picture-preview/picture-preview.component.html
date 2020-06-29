@@ -1,0 +1,8 @@
+<div class="data" [ngClass]="side">
+    <span class="date">{{ picture?.displayableDate }}</span>
+    <h3 class="title">{{ picture?.title }}</h3>
+</div>
+
+<a class="picture" [ngClass]="side" [routerLink]="[picture?.apiFormatDate]">
+    <img [src]="picture?.hdurl" alt="Picture">
+</a>

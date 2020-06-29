@@ -9,7 +9,11 @@ const routes: Routes = [
     component: PicturesComponent
   },
   {
-    path: ':date',
+    path: 'today',
+    component: PodComponent
+  },
+  {
+    path: 'all-pictures/:date',
     component: PodComponent
   }
 ];

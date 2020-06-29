@@ -1,1 +1,5 @@
-<p>pictures works!</p>
+<app-picture-preview
+    *ngFor="let picture of pictures; let i = index"
+    [picture]="picture"
+    [side]="i % 2 === 0 ? 'left' : 'right'">
+</app-picture-preview>

@@ -1,4 +1,5 @@
 import { dashToCamelCase } from "../../shared/utils";
+import * as moment from "moment";
 
 /**
  * Represents the data of a picture retrieved from the APOD Nasa API.
@@ -30,5 +31,25 @@ export class Picture {
                 this[dashToCamelCase(property)] = data[property];
             }
         });
+    }
+
+    /**
+     * Returned the date as a string.
+     *
+     * @returns Date stringified in a format used by the template.
+     */
+    get displayableDate(): string {
+        if (!this.date) return "";
+        return moment(this.date).format("MM.DD");
+    }
+
+    /**
+     * Returned the date as a string in a format comprehensive for the APOD API.
+     *
+     * @returns Date stringified in a format used by the APOD API.
+     */
+    get apiFormatDate(): string {
+        if (!this.date) return "";
+        return moment(this.date).format("YYYY-MM-DD");
     }
 }
