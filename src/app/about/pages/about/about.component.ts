@@ -1,15 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { CursorHoverService } from 'src/app/core/shared/services/cursor-hover.service';
 
 @Component({
   selector: 'app-about',
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.scss']
 })
-export class AboutComponent implements OnInit {
+export class AboutComponent implements AfterViewInit {
+  @ViewChild("container") containerRef: ElementRef;
 
-  constructor() { }
+  constructor(
+    private readonly cursorService: CursorHoverService
+  ) {}
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
+    const menu: HTMLElement = this.containerRef.nativeElement;
+    const menuItems: NodeListOf<HTMLElement> = menu.querySelectorAll(".link");
+    menuItems.forEach(item => {
+      this.cursorService.addFocusableElement(item)
+    });
   }
 
 }
