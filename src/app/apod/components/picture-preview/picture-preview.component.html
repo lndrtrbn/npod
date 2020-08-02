@@ -4,5 +4,8 @@
 </div>
 
 <a class="picture" [ngClass]="side" [routerLink]="[picture?.apiFormatDate]">
-    <img [src]="picture?.hdurl" alt="Picture">
+    <img
+        [src]="picture?.hdurl"
+        alt="Picture"
+        onerror="this.onerror=null; this.src='assets/images/not_found.jpg'">
 </a>
