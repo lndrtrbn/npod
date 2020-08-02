@@ -3,3 +3,11 @@
     [picture]="picture"
     [side]="i % 2 === 0 ? 'left' : 'right'">
 </app-picture-preview>
+
+<div
+    *ngIf="pictures && pictures.length > 0"
+    class="loading"
+    appOnViewport
+    (visible)="fetchPictures(2000)">
+    <span *ngIf="isFetching">Loading more picture . . .</span>
+</div>

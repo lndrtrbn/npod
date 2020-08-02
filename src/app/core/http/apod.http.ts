@@ -45,7 +45,7 @@ export class ApodHttpService {
    */
   getMultipleApod(startDate?: string, quantity = 3): Observable<Picture[]> {
     // Mocking data to avoid spamming Nasa API during dev. TODO DELETE.
-    return this.http.get<IPicture[]>("assets/a.json").pipe(map(pics => pics.map(p => new Picture(p))));
+    // return this.http.get<IPicture[]>("assets/a.json").pipe(map(pics => pics.map(p => new Picture(p))));
     return this.getApod(startDate).pipe(
       mergeMap(firstPicture => {
         const requests: Observable<Picture>[] = [];
