@@ -2,7 +2,6 @@ import { Component, ViewChild, ElementRef, AfterViewInit, HostListener, OnInit }
 import * as paper from "paper";
 import { CursorPosition } from "src/app/core/shared/interfaces/cursor-position";
 import { CursorHoverService } from "src/app/core/shared/services/cursor-hover.service";
-import { flatten } from '@angular/compiler';
 
 // Inspired from: https://tympanus.net/codrops/2019/01/31/custom-cursor-effects/
 

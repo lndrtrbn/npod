@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { CursorPosition } from '../interfaces/cursor-position';
 
+/**
+ * Service to manage the animation on the menu on hover.
+ */
 @Injectable({
   providedIn: 'root'
 })
